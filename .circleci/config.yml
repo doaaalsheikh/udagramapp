@@ -9,10 +9,6 @@ jobs:
     steps:
       - node/install:
           node-version: '16.13'
-      - run:
-          name: npm init
-          command: |
-            npm init
       - checkout
       - aws-cli/setup
       - run:
