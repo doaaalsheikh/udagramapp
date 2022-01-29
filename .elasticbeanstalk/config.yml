@@ -1,0 +1,9 @@
+branch-defaults:
+  master:
+    environment: Udagramapp-env
+global:
+  application_name: udagramapp
+  default_platform: Node.js 14
+  default_region: us-east-1
+  deploy:
+    artifact: www/Archive.zip

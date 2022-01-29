@@ -7,7 +7,8 @@
         "api:start": "cd ./udagram-api && npm run start",
         "frontend:install": "cd ./udagram-frontend && npm install",
         "frontend:build": "cd ./udagram-frontend && npm run build",
-        "frontend:start": "cd ./udagram-frontend && npm start"
+        "frontend:start": "cd ./udagram-frontend && npm start",
+        "frontend:deploy": "cd ./udagram-frontend && npm run deploy"
     },
     "devDependencies": {}
 }
