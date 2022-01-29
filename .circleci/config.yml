@@ -28,7 +28,7 @@ jobs:
           name: Save Package Cache
           key: npm-packages-{{ checksum "package.json" }}-{{ checksum "package-lock.json" }}
           paths:
-            - ./node_modules/
+            - ~/project/node_modules/
       - aws-cli/setup
       - run:
           name: Front-End Install
