@@ -18,6 +18,7 @@ jobs:
       - checkout
       - node/install:
           node-version: '16.13.1'
+          npm-version: '8.3.2'
       - aws-cli/setup
       - run:
           name: Front-End Install
