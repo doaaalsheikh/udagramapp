@@ -1,13 +1,13 @@
 version: 2.1
 orbs:
-  node: circleci/node@14.1.0
+  win: circleci/windows@2.2.0 
+  node: circleci/node@4
   aws-cli: circleci/aws-cli@1.3.1
 jobs:
   build:
-    machine:
-      - image: "cimg/base:stable"
+    executor: win/default
     steps:
-      - node@14.1.0 /install
+      - node/install
       - checkout
       - aws-cli/setup
       - run:
