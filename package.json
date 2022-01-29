@@ -1,20 +1,20 @@
 {
-  "scripts": {
-    "api:install": "cd ./udagram-api && npm install",
-    "api:build": "cd ./udagram-api && npm run build",
-    "api:dev": "cd ./udagram-api && npm run dev",
-    "api:prod": "cd ./udagram-api && npm run prod",
-    "api:start": "cd ./udagram-api && npm run start",
-    "frontend:install": "cd ./udagram-frontend && npm install",
-    "frontend:build": "cd ./udagram-frontend && npm run build",
-    "frontend:start": "cd ./udagram-frontend && npm start",
-    "frontend:deploy": "cd ./udagram-frontend && npm run deploy"
-  },
-  "devDependencies": {},
-  "name": "udagramapp",
-  "description": "This application is provided to you as an alternative starter project if you do not wish to host your own code done in the previous courses of this nanodegree. The udagram application is a fairly simple application that includes all the major components of a Full-Stack web application.",
-  "version": "1.0.0",
-  "main": "index.js",
-  "author": "",
-  "license": "ISC"
+    "name": "udagramapp",
+    "description": "This application is provided to you as an alternative starter project if you do not wish to host your own code done in the previous courses of this nanodegree. The udagram application is a fairly simple application that includes all the major components of a Full-Stack web application.",
+    "version": "1.0.0",
+    "main": "index.js",
+    "author": "",
+    "license": "ISC",
+    "scripts": {
+        "api:install": "cd ./udagram-api && npm install",
+        "api:build": "cd ./udagram-api && npm run build",
+        "api:dev": "cd ./udagram-api && npm run dev",
+        "api:prod": "cd ./udagram-api && npm run prod",
+        "api:start": "cd ./udagram-api && npm run start",
+        "frontend:install": "cd ./udagram-frontend && npm install",
+        "frontend:build": "cd ./udagram-frontend && npm run build",
+        "frontend:start": "cd ./udagram-frontend && npm start",
+        "frontend:deploy": "cd ./udagram-frontend && npm run deploy"
+    },
+    "devDependencies": {}
 }
