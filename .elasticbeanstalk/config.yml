@@ -6,4 +6,4 @@ global:
   default_platform: Node.js 14
   default_region: us-east-1
   deploy:
-    artifact: www/Archive.zip
+    artifact: ./udagram-api/www/Archive.zip
