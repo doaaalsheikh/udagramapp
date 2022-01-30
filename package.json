@@ -5,6 +5,9 @@
     "main": "index.js",
     "author": "",
     "license": "ISC",
+    "engines": {
+        "node": ">=0.12"
+    },
     "scripts": {
         "api:install": "cd ./udagram-api && npm install",
         "api:build": "cd ./udagram-api && npm run build",
