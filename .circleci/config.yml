@@ -52,5 +52,7 @@ jobs:
           name: Deploy App
           command: |
             npm run frontend:deploy
-            eb use $ENVIRONMENT_NAME
+            cd ./udagram-api
+            eb init --profile eb-cli --region us-east-1 --platform "arn:aws:elasticbeanstalk:us-east-1::platform/Node.js 14 running on 64bit Amazon Linux 2" $ENVIRONMENT_NAME
+            cd ..
             npm run api:deploy
