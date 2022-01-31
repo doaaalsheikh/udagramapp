@@ -52,4 +52,5 @@ jobs:
           name: Deploy App
           command: |
             npm run frontend:deploy
+            eb init udagram-api
             npm run api:deploy
