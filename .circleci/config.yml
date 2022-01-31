@@ -52,7 +52,4 @@ jobs:
           name: Deploy App
           command: |
             npm run frontend:deploy
-            cd ./udagram-api
-            eb init --profile default --region us-east-1 --platform "Node.js 14 running on 64bit Amazon Linux 2" $ENVIRONMENT_NAME
-            cd ..
             npm run api:deploy
