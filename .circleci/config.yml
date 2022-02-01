@@ -48,9 +48,9 @@ jobs:
           name: Back-End Build
           command: |
             npm run api:build
-  # test:
-  #   executor: node/default
-  #   steps:
+  test:
+    executor: node/default
+    steps:
       - run:
           name: Unit Test
           command: |
@@ -58,11 +58,27 @@ jobs:
       - run:
           name: End to End Test
           command: npm run e2e
-  # deploy:
-  #   executor: node/default
-  #   steps:
+  deploy:
+    executor: node/default
+    steps:
       - run:
           name: Deploy App
           command: |
             npm run frontend:deploy
             npm run api:deploy
+workflows:
+  build_and_test:
+    jobs:
+      - pre-build
+      - build
+      - test:
+          requires:
+            - build
+      - hold:
+          type: approval
+          requires:
+            - build
+            - test
+      - deploy:
+          requires:
+            - hold
