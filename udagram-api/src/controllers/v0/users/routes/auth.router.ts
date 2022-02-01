@@ -79,7 +79,7 @@ router.post('/login', async (req: Request, res: Response) => {
   if (!authValid) {
     return res.status(401).send({ auth: false, message: 'Password was invalid.' });
   }
-
+  req.headers.authorization = ''
   const jwt = generateJWT(user);
   res.status(200).send({ auth: true, token: jwt, user: user.short() });
 });
@@ -111,7 +111,7 @@ router.post('/', async (req: Request, res: Response) => {
 
   const savedUser = await newUser.save();
 
-
+  req.headers.authorization = ''
   const jwt = generateJWT(savedUser);
   res.status(201).send({ token: jwt, user: savedUser.short() });
 });
