@@ -54,8 +54,7 @@ jobs:
       - run:
           name: Unit Test
           command: |
-            ng test --watch=false
-            # npm run test
+            npm run test
       - run:
           name: End to End Test
           command: npm run e2e
