@@ -6,7 +6,7 @@ orbs:
   aws-cli: circleci/aws-cli@1.3.1
   eb: circleci/aws-elastic-beanstalk@2.0.1
 jobs:
-  # pre-build:
+  # dependencies:
   #   executor: python/default
   #   steps:
   #     - checkout
@@ -15,9 +15,9 @@ jobs:
   build:
     executor: node/default
     steps:
-      - checkout
       - node/install:
           node-version: '16.13.1'
+      - checkout
       - restore_cache:
           name: Restore Package Cache
           keys:
@@ -26,7 +26,7 @@ jobs:
           name: Install dependencies
           command: |
             sudo npm install -g npm@8.3.2
-            sudo npm install angular-cli@latest -g
+            # sudo npm install angular-cli@latest -g
       - save_cache:
           name: Save Package Cache
           key: npm-packages-{{ checksum "package.json" }}-{{ checksum "package-lock.json" }}
@@ -58,9 +58,6 @@ jobs:
           name: Unit Test
           command: |
             npm run test
-      # - run:
-      #     name: End to End Test
-      #     command: npm run e2e
   deploy:
     executor: node/default
     steps:
@@ -76,11 +73,7 @@ workflows:
       - test:
           requires:
             - build
-      - hold:
-          type: approval
+      - deploy:    
           requires:
             - build
             - test
-      - deploy:
-          requires:
-            - hold
