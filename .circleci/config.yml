@@ -69,7 +69,6 @@ jobs:
 workflows:
   build_and_test:
     jobs:
-      - pre-build
       - build
       - test:
           requires:
