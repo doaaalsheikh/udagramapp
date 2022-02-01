@@ -51,6 +51,7 @@ jobs:
   test:
     executor: node/default
     steps:
+      - checkout
       - run:
           name: Unit Test
           command: |
