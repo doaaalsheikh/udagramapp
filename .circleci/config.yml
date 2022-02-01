@@ -48,16 +48,6 @@ jobs:
           name: Back-End Build
           command: |
             npm run api:build
-  test:
-    executor: node/default
-    steps:
-      - run:
-          name: Unit Test
-          command: |
-            npm run test
-      - run:
-          name: End to End Test
-          command: npm run e2e
   deploy:
     executor: node/default
     steps:
