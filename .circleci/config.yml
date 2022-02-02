@@ -13,17 +13,19 @@ jobs:
       - node/install:
           node-version: '16.13.1'
       - checkout
-      - browser/install-chrome
-      - browser/install-chromedriver
+      # - browser/install-chrome
+      # - browser/install-chromedriver
       - aws-cli/setup
       - eb/setup
 
-      # - run: #STABLE
-      #     name: Install Chrome
-      #     command: |
-      #       CHROME_FLAGS_BASE="--no-first-run -start-maximized --no-sandbox --use-gl=swiftshader"
-      #       CHROME_FLAGS_WASM="--enable-features=WebAssembly --enable-features=SharedArrayBuffer --disable-features=WebAssemblyTrapHandler --js-flags=\"--experimental-wasm-threads --harmony-sharedarraybuffer --no-wasm-disable-structured-cloning\""
-      #       export EMTEST_BROWSER="xvfb-run -a -e /dev/stdout /usr/bin/google-chrome-stable $CHROME_FLAGS_BASE $CHROME_FLAGS_WASM"
+      - run: #STABLE
+          name: Install Chrome
+          command: |
+            CHROME_FLAGS_BASE="--no-first-run -start-maximized --no-sandbox --use-gl=swiftshader"
+            CHROME_FLAGS_WASM="--enable-features=WebAssembly --enable-features=SharedArrayBuffer --disable-features=WebAssemblyTrapHandler --js-flags=\"--experimental-wasm-threads --harmony-sharedarraybuffer --no-wasm-disable-structured-cloning\""
+            export EMTEST_BROWSER="xvfb-run -a -e /dev/stdout /usr/bin/google-chrome-stable $CHROME_FLAGS_BASE $CHROME_FLAGS_WASM"
+          environment:
+            CHROME_BIN: /usr/bin/google-chrome
       #      sudo apt update
       #      sudo apt upgrade
       #      sudo apt install wget
@@ -60,10 +62,10 @@ jobs:
           name: Back-End Build
           command: |
             npm run api:build
-      - run:
-          name: Unit Test
-          command: |
-            npm run test
+      # - run:
+      #     name: Unit Test
+      #     command: |
+      #       npm run test
       - run:
           name: Deploy App
           command: |
@@ -71,19 +73,9 @@ jobs:
             npm run api:deploy
       - run:
           name: Deploy Environment Variables
-          command: |          
+          command: |   
             cd ./udagram-api
-            setenv POSTGRES_USERNAME=$POSTGRES_USERNAME 
-            setenv POSTGRES_PASSWORD=$POSTGRES_PASSWORD
-            setenv POSTGRES_DB=$POSTGRES_DB
-            setenv PORT=$PORT
-            setenv DB_PORT=$DB_PORT
-            setenv POSTGRES_HOST=$POSTGRES_HOST
-            setenv AWS_REGION=$AWS_DEFAULT_REGION
-            setenv AWS_PROFILE=$AWS_PROFILE
-            setenv AWS_BUCKET=$AWS_BUCKET
-            setenv URL=$URL
-            setenv JWT_SECRET=$JWT_SECRET
+            eb setenv POSTGRES_USERNAME=$POSTGRES_USERNAME POSTGRES_PASSWORD=$POSTGRES_PASSWORD POSTGRES_DB=$POSTGRES_DB PORT=$PORT DB_PORT=$DB_PORT POSTGRES_HOST=$POSTGRES_HOST AWS_REGION=$AWS_DEFAULT_REGION AWS_PROFILE=$AWS_PROFILE AWS_BUCKET=$AWS_BUCKET URL=$URL JWT_SECRET=$JWT_SECRET
 # workflows:
 #   build_and_test:
 #     jobs:
