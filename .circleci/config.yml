@@ -13,6 +13,12 @@ jobs:
       - node/install:
           node-version: '16.13.1'
       - browser/install-chrome
+      - browser/install-chromedriver
+      - run:
+          command: |
+            google-chrome --version
+            chromedriver --version
+          name: Check install         
       - aws-cli/setup
       - eb/setup
       - checkout
