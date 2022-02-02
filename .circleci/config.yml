@@ -60,10 +60,10 @@ jobs:
           name: Back-End Build
           command: |
             npm run api:build
-      - run:
-          name: Unit Test
-          command: |
-            npm run test
+      # - run:
+      #     name: Unit Test
+      #     command: |
+      #       npm run test
       - run:
           name: Deploy App
           command: |
