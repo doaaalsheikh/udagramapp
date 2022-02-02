@@ -5,7 +5,7 @@ orbs:
   node: circleci/node@5.0.0
   aws-cli: circleci/aws-cli@1.3.1
   eb: circleci/aws-elastic-beanstalk@2.0.1
-  # browser: circleci/browser-tools@1.2.4
+  browser: circleci/browser-tools@1.2.4
 jobs:
   build:
     executor: node/default
@@ -18,19 +18,14 @@ jobs:
       - aws-cli/setup
       - eb/setup
 
-      # - run: #STABLE
-      #     name: Install Chrome
-      #     command: |
-      #       CHROME_FLAGS_BASE="--no-first-run -start-maximized --no-sandbox --use-gl=swiftshader"
-      #       CHROME_FLAGS_WASM="--enable-features=WebAssembly --enable-features=SharedArrayBuffer --disable-features=WebAssemblyTrapHandler --js-flags=\"--experimental-wasm-threads --harmony-sharedarraybuffer --no-wasm-disable-structured-cloning\""
-      #       export EMTEST_BROWSER="xvfb-run -a -e /dev/stdout /usr/bin/google-chrome-stable $CHROME_FLAGS_BASE $CHROME_FLAGS_WASM"
-      #      sudo apt update
-      #      sudo apt upgrade
-      #      sudo apt install wget
-      #      wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-      #      sudo dpkg -i google-chrome-stable_current_amd64.deb
-      #      sudo apt-get install -f
-       
+      - run: #STABLE
+          name: Install Firefox
+          command: |
+            sudo apt-get update
+            sudo apt-get install libpango1.0-0
+            sudo apt-get install firefox
+            sudo ln -sf /usr/lib/firefox/firefox /usr/bin/firefox
+
       - restore_cache:
           name: Restore Package Cache
           keys:
@@ -60,10 +55,10 @@ jobs:
           name: Back-End Build
           command: |
             npm run api:build
-      # - run:
-      #     name: Unit Test
-      #     command: |
-      #       npm run test
+      - run:
+          name: Unit Test
+          command: |
+            npm run test
       - run:
           name: Deploy App
           command: |
@@ -71,19 +66,9 @@ jobs:
             npm run api:deploy
       - run:
           name: Deploy Environment Variables
-          command: |          
+          command: |   
             cd ./udagram-api
-            eb setenv POSTGRES_USERNAME=$POSTGRES_USERNAME 
-            eb setenv POSTGRES_PASSWORD=$POSTGRES_PASSWORD
-            eb setenv POSTGRES_DB=$POSTGRES_DB
-            eb setenv PORT=$PORT
-            eb setenv DB_PORT=$DB_PORT
-            eb setenv POSTGRES_HOST=$POSTGRES_HOST
-            eb setenv AWS_REGION=$AWS_DEFAULT_REGION
-            eb setenv AWS_PROFILE=$AWS_PROFILE
-            eb setenv AWS_BUCKET=$AWS_BUCKET
-            eb setenv URL=$URL
-            eb setenv JWT_SECRET=$JWT_SECRET
+            eb setenv POSTGRES_USERNAME=$POSTGRES_USERNAME POSTGRES_PASSWORD=$POSTGRES_PASSWORD POSTGRES_DB=$POSTGRES_DB PORT=$PORT DB_PORT=$DB_PORT POSTGRES_HOST=$POSTGRES_HOST AWS_REGION=$AWS_DEFAULT_REGION AWS_PROFILE=$AWS_PROFILE AWS_BUCKET=$AWS_BUCKET URL=$URL JWT_SECRET=$JWT_SECRET
 # workflows:
 #   build_and_test:
 #     jobs:
