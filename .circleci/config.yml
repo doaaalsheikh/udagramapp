@@ -48,14 +48,14 @@ jobs:
   # test:
   #   executor: win/default
   #   steps:
-      - checkout
+      # - checkout
       - run:
           name: Unit Test
           command: |
             npm run test
-  deploy:
-    executor: node/default
-    steps:
+  # deploy:
+  #   executor: node/default
+  #   steps:
       - checkout          
       - run:
           name: Deploy App
@@ -77,14 +77,11 @@ jobs:
             setenv AWS_BUCKET=$AWS_BUCKET
             setenv URL=$URL
             setenv JWT_SECRET=$JWT_SECRET
-workflows:
-  build_and_test:
-    jobs:
-      - build
-      # - test:
-      #     requires:
-      #       - build
-      - deploy:    
-          requires:
-            - build
+# workflows:
+#   build_and_test:
+#     jobs:
+#       - build
+#       - deploy:    
+#           requires:
+#             - build
             # - test
