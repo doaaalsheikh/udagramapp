@@ -17,17 +17,17 @@ jobs:
       # - browser/install-chromedriver
       - aws-cli/setup
       - eb/setup
-      
+
       - run: #STABLE
           name: Install Chromedriver latest version
           command: |
-            sudo apt-get update
-            sudo apt-get install lsb-release libappindicator3-1
-            curl -L -o google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-            sudo dpkg -i google-chrome.deb
-            sudo sed -i 's|HERE/chrome"|HERE/chrome" --no-sandbox|g' /opt/google/chrome/google-chrome
-            rm google-chrome.deb
-      
+           sudo apt update
+           sudo apt upgrade
+           sudo apt install wget
+           wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+           sudo dpkg -i google-chrome-stable_current_amd64.deb
+           sudo apt-get install -f
+       
       - restore_cache:
           name: Restore Package Cache
           keys:
