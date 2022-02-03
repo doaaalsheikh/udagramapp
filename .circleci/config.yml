@@ -45,10 +45,10 @@ jobs:
           name: Back-End Build
           command: |
             npm run api:build
+      - checkout
   test: 
     executor: node/default
     steps:
-      - checkout
       - run:
           name: Unit Test
           command: |
