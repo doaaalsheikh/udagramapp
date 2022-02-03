@@ -15,17 +15,18 @@ jobs:
       - checkout
       # - browser/install-chrome
       # - browser/install-chromedriver
+      - browser/install-firefox
       - aws-cli/setup
       - eb/setup
 
-      - run: #STABLE
-          name: Install Chrome
-          command: |
-            CHROME_FLAGS_BASE="--no-first-run -start-maximized --no-sandbox --use-gl=swiftshader"
-            CHROME_FLAGS_WASM="--enable-features=WebAssembly --enable-features=SharedArrayBuffer --disable-features=WebAssemblyTrapHandler --js-flags=\"--experimental-wasm-threads --harmony-sharedarraybuffer --no-wasm-disable-structured-cloning\""
-            export EMTEST_BROWSER="xvfb-run -a -e /dev/stdout /usr/bin/google-chrome-stable $CHROME_FLAGS_BASE $CHROME_FLAGS_WASM"
-          environment:
-            CHROME_BIN: /usr/bin/google-chrome
+      # - run: #STABLE
+      #     name: Install Chrome
+      #     command: |
+      #       CHROME_FLAGS_BASE="--no-first-run -start-maximized --no-sandbox --use-gl=swiftshader"
+      #       CHROME_FLAGS_WASM="--enable-features=WebAssembly --enable-features=SharedArrayBuffer --disable-features=WebAssemblyTrapHandler --js-flags=\"--experimental-wasm-threads --harmony-sharedarraybuffer --no-wasm-disable-structured-cloning\""
+      #       export EMTEST_BROWSER="xvfb-run -a -e /dev/stdout /usr/bin/google-chrome-stable $CHROME_FLAGS_BASE $CHROME_FLAGS_WASM"
+      #     environment:
+      #       CHROME_BIN: /usr/bin/google-chrome
       #      sudo apt update
       #      sudo apt upgrade
       #      sudo apt install wget
@@ -62,10 +63,10 @@ jobs:
           name: Back-End Build
           command: |
             npm run api:build
-      # - run:
-      #     name: Unit Test
-      #     command: |
-      #       npm run test
+      - run:
+          name: Unit Test
+          command: |
+            npm run test
       - run:
           name: Deploy App
           command: |
