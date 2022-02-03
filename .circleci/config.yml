@@ -14,8 +14,8 @@ jobs:
           node-version: '16.13.1'
       - checkout
       - browser/install-chrome
-      - browser/install-chromedriver
-      - browser/install-firefox
+      # - browser/install-chromedriver
+      # - browser/install-firefox
       - aws-cli/setup
       - eb/setup
 
@@ -41,7 +41,7 @@ jobs:
       - run: 
           name: Install dependencies
           command: |
-            sudo npm install -g npm@8.3.2
+            npm install -g npm@8.3.2
       - save_cache:
           name: Save Package Cache
           key: npm-packages-{{ checksum "package.json" }}-{{ checksum "package-lock.json" }}
@@ -66,7 +66,7 @@ jobs:
       - run:
           name: Unit Test
           command: |
-            sudo npm run test
+            npm run test
       - run:
           name: Deploy App
           command: |
