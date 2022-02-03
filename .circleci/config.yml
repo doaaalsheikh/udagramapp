@@ -7,6 +7,12 @@ orbs:
   eb: circleci/aws-elastic-beanstalk@2.0.1
   browser: circleci/browser-tools@1.2.4
 jobs:
+  pre-build:
+    executor: python/default
+    steps:
+      - checkout
+      - python/install-packages:
+          pkg-manager: pip    
   build: 
     executor: node/default
     steps:
