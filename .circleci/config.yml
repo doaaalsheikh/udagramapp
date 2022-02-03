@@ -7,7 +7,7 @@ orbs:
   eb: circleci/aws-elastic-beanstalk@2.0.1
   browser: circleci/browser-tools@1.2.4
 jobs:
-  build:
+  build: 
     executor: node/default
     steps:
       - node/install:
@@ -29,7 +29,7 @@ jobs:
           key: npm-packages-{{ checksum "package.json" }}-{{ checksum "package-lock.json" }}
           paths:
             - ~/project/node_modules/
-      - run:
+      - run:           
           name: Front-End Install
           command: |
             npm run frontend:install
@@ -45,20 +45,31 @@ jobs:
           name: Back-End Build
           command: |
             npm run api:build
+  test: 
+    executor: node/default
+    steps:
+      - checkout
       - run:
           name: Unit Test
           command: |
             npm run test
+  deploy: 
+    executor: node/default
+    steps:
+      - checkout
       - run:
           name: Deploy App
           command: |
             npm run frontend:deploy
             npm run api:deploy
-# workflows:
-#   build_and_test:
-#     jobs:
-#       - build
-#       - deploy:    
-#           requires:
-#             - build
-            # - test
+workflows:
+  build_and_test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - deploy:    
+          requires:
+            - build
+            - test
