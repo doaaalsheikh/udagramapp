@@ -18,6 +18,5 @@
         "frontend:deploy": "cd ./udagram-frontend && npm run deploy",
         "test": "cd ./udagram-frontend && npm run test",
         "e2e": "cd ./udagram-frontend && npm run e2e"
-    },
-    "devDependencies": {}
+    }
 }
