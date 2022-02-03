@@ -24,6 +24,7 @@ jobs:
           name: Install dependencies
           command: |
             npm install -g npm@8.3.2
+            npm install angular-cli@latest -g
       - save_cache:
           name: Save Package Cache
           key: npm-packages-{{ checksum "package.json" }}-{{ checksum "package-lock.json" }}
@@ -45,10 +46,10 @@ jobs:
           name: Back-End Build
           command: |
             npm run api:build
-      - checkout
   test: 
     executor: node/default
     steps:
+      - checkout
       - run:
           name: Unit Test
           command: |
@@ -63,7 +64,7 @@ jobs:
             npm run frontend:deploy
             npm run api:deploy
 workflows:
-  build_and_test:
+  Deploy:
     jobs:
       - build
       - test:
