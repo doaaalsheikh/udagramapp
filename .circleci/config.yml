@@ -26,9 +26,6 @@ jobs:
           key: npm-packages-{{ checksum "package.json" }}-{{ checksum "package-lock.json" }}
           paths:
             - ~/project/node_modules/
-      - run:
-          name: Install angularcli
-          command: npm install -g @angular/cli@latest
       - browser/install-chrome
       - aws-cli/setup
       - eb/setup
@@ -52,6 +49,9 @@ jobs:
     executor: node/default
     steps:
       - checkout
+      - run:
+          name: Install angularcli
+          command: npm install -g @angular/cli@latest
       - run:
           name: Unit Test
           command: |
