@@ -11,15 +11,15 @@ jobs:
     executor: python/default
     steps:
       - python/install-packages:
-          pkg-manager: pip  
-      - aws-cli/setup
-      - eb/setup
-      - browser/install-chrome       
+          pkg-manager: pip             
   build: 
     executor: node/default
     steps:
       - node/install:
           node-version: '16.13.1'
+      - aws-cli/setup
+      - eb/setup
+      - browser/install-chrome  
       - checkout
       - restore_cache:
           name: Restore Package Cache
