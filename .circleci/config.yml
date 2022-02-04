@@ -10,7 +10,6 @@ jobs:
   pre-build:
     executor: python/default
     steps:
-      - checkout
       - python/install-packages:
           pkg-manager: pip  
       - aws-cli/setup
