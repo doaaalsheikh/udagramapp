@@ -7,33 +7,12 @@ orbs:
   eb: circleci/aws-elastic-beanstalk@2.0.1
   browser: circleci/browser-tools@1.2.4
 jobs:
-  build:
+  build: 
     executor: node/default
     steps:
       - node/install:
           node-version: '16.13.1'
       - checkout
-      - browser/install-chrome
-      # - browser/install-chromedriver
-      # - browser/install-firefox
-      - aws-cli/setup
-      - eb/setup
-
-      # - run: #STABLE
-      #     name: Install Chrome
-      #     command: |
-      #       CHROME_FLAGS_BASE="--no-first-run -start-maximized --no-sandbox --use-gl=swiftshader"
-      #       CHROME_FLAGS_WASM="--enable-features=WebAssembly --enable-features=SharedArrayBuffer --disable-features=WebAssemblyTrapHandler --js-flags=\"--experimental-wasm-threads --harmony-sharedarraybuffer --no-wasm-disable-structured-cloning\""
-      #       export EMTEST_BROWSER="xvfb-run -a -e /dev/stdout /usr/bin/google-chrome-stable $CHROME_FLAGS_BASE $CHROME_FLAGS_WASM"
-      #     environment:
-      #       CHROME_BIN: /usr/bin/google-chrome
-      #      sudo apt update
-      #      sudo apt upgrade
-      #      sudo apt install wget
-      #      wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-      #      sudo dpkg -i google-chrome-stable_current_amd64.deb
-      #      sudo apt-get install -f
-       
       - restore_cache:
           name: Restore Package Cache
           keys:
@@ -47,7 +26,13 @@ jobs:
           key: npm-packages-{{ checksum "package.json" }}-{{ checksum "package-lock.json" }}
           paths:
             - ~/project/node_modules/
-      - run:
+      - browser/install-chrome
+      - aws-cli/setup
+      - eb/setup
+
+      # Install and build applcatoin (API and Frontend)
+          # Install dependencies of Frontend  and API
+      - run:           
           name: Front-End Install
           command: |
             npm run frontend:install
@@ -55,6 +40,8 @@ jobs:
           name: Back-End Install
           command: |
             npm run api:install
+
+          # Build Both Frontend and API
       - run:
           name: Front-End Build
           command: |
@@ -63,25 +50,18 @@ jobs:
           name: Back-End Build
           command: |
             npm run api:build
+      
+      # Test Application      
       - run:
           name: Unit Test
           command: |
             npm run test
+
+      # Deploy Application
+          # API to Elastic Beanstalk and 
+          # Frontend to S3 
       - run:
           name: Deploy App
           command: |
             npm run frontend:deploy
-            npm run api:deploy
-      # - run:
-      #     name: Deploy Environment Variables
-      #     command: |   
-      #       cd ./udagram-api
-      #       eb setenv POSTGRES_USERNAME=$POSTGRES_USERNAME POSTGRES_PASSWORD=$POSTGRES_PASSWORD POSTGRES_DB=$POSTGRES_DB PORT=$PORT DB_PORT=$DB_PORT POSTGRES_HOST=$POSTGRES_HOST AWS_REGION=$AWS_DEFAULT_REGION AWS_PROFILE=$AWS_PROFILE AWS_BUCKET=$AWS_BUCKET URL=$URL JWT_SECRET=$JWT_SECRET
-# workflows:
-#   build_and_test:
-#     jobs:
-#       - build
-#       - deploy:    
-#           requires:
-#             - build
-            # - test
+            npm run api:deploy 
