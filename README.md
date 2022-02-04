@@ -21,7 +21,7 @@
 
 ### Deployed API on Elastic Beanstalk:
 
-#### [Deployed API](http://udagram-api-env.eba-4jmumwps.us-east-1.elasticbeanstalk.com/G)
+#### [Deployed API](http://udagram-api-env.eba-4jmumwps.us-east-1.elasticbeanstalk.com/)
  
 
 
