@@ -7,7 +7,7 @@ orbs:
   eb: circleci/aws-elastic-beanstalk@2.0.1
   browser: circleci/browser-tools@1.2.4
 jobs:
-  deploy: 
+  build: 
     executor: node/default
     steps:
       - node/install:
