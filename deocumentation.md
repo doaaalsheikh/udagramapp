@@ -1,7 +1,7 @@
 ## Documentation
 
 ### Click on links below to view images:
-- [Architecture Diagram](Screenshots\UDAGRAM.drawio.png)
+- [Architecture Diagram](Screenshots/UDAGRAM.drawio.png)
 - [The home page of the hosted application (Udagram)](Screenshots/1-homepage.PNG)
 - RDS
     - [RDS Configuration](Screenshots/2-rds_configurations.PNG)
