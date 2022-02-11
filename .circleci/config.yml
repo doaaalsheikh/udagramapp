@@ -66,7 +66,7 @@ jobs:
             npm run frontend:deploy
             npm run api:deploy 
 
-workflow:
+workflows:
   main:
     jobs:
       - build:
