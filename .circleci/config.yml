@@ -65,3 +65,12 @@ jobs:
           command: |
             npm run frontend:deploy
             npm run api:deploy 
+
+workflow:
+  main:
+    jobs:
+      - build:
+        filters:
+          branches:
+            only:
+              - master
