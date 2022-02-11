@@ -28,6 +28,7 @@
 ### CircleCi configuration file:
 ![Circleci Config1](Screenshots/15-pip1.PNG)
 ![Circleci Config2](Screenshots/16-pip2.PNG)
+![Circleci Config2](Screenshots/17-pip3.PNG)
 
 ### Pipeline Process:
 ![Circleci Success build status](Screenshots/11-ci_success.PNG)
