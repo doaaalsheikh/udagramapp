@@ -6,6 +6,13 @@
 - npm 8.3.2 (LTS)
 - AWS CLI v2
 - EB (udagram-api/ udagram-api-env)
+- express
+- pg
+- sequelize
+- angular
+- karma
+- protractor
+- typescript
 
 ### Github Repository:
 
